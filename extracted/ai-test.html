@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chrome Built-in AI Test</h1>
+    <p>This page tests whether Chrome's built-in AI is properly configured and available.</p>
+    
+    <button id="testBtn">Test AI Availability</button>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('testBtn').addEventListener('click', async () => {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<p>Testing AI availability...</p>';
+            
+            // Clear previous results
+            resultDiv.innerHTML = '';
+            
+            // Helper function to add result
+            function addResult(message, isSuccess = true) {
+                const div = document.createElement('div');
+                div.className = `result ${isSuccess ? 'success' : 'error'}`;
+                div.innerHTML = message;
+                resultDiv.appendChild(div);
+            }
+            
+            // Helper function to add code block
+            function addCodeBlock(code) {
+                const pre = document.createElement('pre');
+                pre.textContent = code;
+                resultDiv.appendChild(pre);
+            }
+            
+            try {
+                // Check basic availability
+                addResult('Checking basic AI availability...');
+                
+                let ai;
+                const methods = [
+                    { name: 'window.ai', obj: window.ai },
+                    { name: 'self.ai', obj: self.ai },
+                    { name: 'globalThis.ai', obj: globalThis.ai }
+                ];
+                
+                for (const method of methods) {
+                    if (method.obj) {
+                        ai = method.obj;
+                        addResult(`✓ Found AI object via ${method.name}`);
+                        addCodeBlock(JSON.stringify(Object.getOwnPropertyNames(method.obj), null, 2));
+                        break;
+                    } else {
+                        addResult(`✗ AI not available via ${method.name}`, false);
+                    }
+                }
+                
+                if (!ai) {
+                    // Try to see if chrome object exists
+                    if (window.chrome) {
+                        addResult('Chrome object exists, checking for AI...');
+                        addCodeBlock(JSON.stringify(Object.getOwnPropertyNames(window.chrome), null, 2));
+                        
+                        if (window.chrome.ai) {
+                            ai = window.chrome.ai;
+                            addResult('✓ Found AI object via window.chrome.ai');
+                        }
+                    } else {
+                        addResult('✗ Chrome object not found', false);
+                    }
+                }
+                
+                if (!ai) {
+                    throw new Error('Built-in AI is not available in this browser. Please make sure you are using Chrome 138 or later and have enabled the built-in AI flags in chrome://flags/.');
+                }
+                
+                // Check if languageModel is available
+                addResult('Checking languageModel availability...');
+                if ('languageModel' in ai) {
+                    addResult('✓ languageModel is available');
+                    addCodeBlock(JSON.stringify(Object.getOwnPropertyNames(ai.languageModel), null, 2));
+                } else {
+                    addResult('✗ languageModel is NOT available', false);
+                    throw new Error('Language Model API is not available. Please make sure you have enabled the Prompt API flag in chrome://flags/.');
+                }
+                
+                // Try to create a session
+                addResult('Attempting to create AI session...');
+                try {
+                    const session = await ai.languageModel.create({
+                        systemPrompt: "You are a helpful assistant."
+                    });
+                    addResult('✓ AI session created successfully');
+                    
+                    // Try to generate content
+                    addResult('Attempting to generate content...');
+                    const response = await session.prompt("Say hello world");
+                    addResult('✓ AI response generated successfully');
+                    addResult(`Response: ${response}`);
+                    
+                } catch (sessionError) {
+                    addResult(`✗ Error with AI session: ${sessionError.message}`, false);
+                    console.error('Session error details:', sessionError);
+                }
+                
+            } catch (error) {
+                addResult(`Error: ${error.message}`, false);
+                console.error('Test error:', error);
+            }
+        });
+    </script>
+</body>
+</html>
