@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeleAI</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="popup-body">
+    <div class="container">
+        <header class="popup-header">
+            <h1>TeleAI</h1>
+            <button id="settingsBtn" class="settings-btn" title="Settings">⚙️</button>
+        </header>
+        
+        <div class="form-section">
+            <div class="input-group">
+                <label for="promptInput">Enter your prompt:</label>
+                <textarea id="promptInput" placeholder="e.g., Write a presentation about renewable energy..." rows="3"></textarea>
+            </div>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="wordCount">Word Count:</label>
+                    <div class="word-count-container">
+                        <input type="number" id="wordCount" value="200" min="50" max="5000">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <button id="generateBtn" class="btn btn-primary">Generate Content</button>
+                <button id="teleprompterBtn" class="btn btn-secondary">Open Teleprompter</button>
+            </div>
+        </div>
+        
+        <div id="status" class="status hidden"></div>
+        
+        <div id="preview" class="preview hidden">
+            <h3>Generated Content Preview:</h3>
+            <div id="previewText" class="preview-text"></div>
+        </div>
+    </div>
+    
+    <script src="popup.js"></script>
+</body>
+</html>
