@@ -4,27 +4,27 @@ A powerful Chrome extension that combines AI-generated content with a smooth tel
 
 ## Features
 
-### 🤖 AI Content Generation
+### AI Content Generation
 - **Built-in AI**: Uses Chrome's built-in AI (Gemini Nano) - no API keys required!
 - **Custom Prompts**: Generate content based on any prompt you provide
 - **Word Count Control**: Specify exactly how many words you need (up to 5000)
 - **Local Processing**: All AI processing happens locally on your device
 
-### 📺 Professional Teleprompter
+### Professional Teleprompter
 - **Smooth Scrolling**: Buttery-smooth text scrolling with precise speed control
 - **Real-time Adjustments**: Change speed and text size on the fly
 - **Pause/Resume**: Space bar to pause/resume, perfect for natural breaks
 - **Fullscreen Mode**: Distraction-free presenting experience
 - **Customizable Appearance**: Adjust colors, fonts, and layout to your preference
 
-### 🎛️ Advanced Controls
+### Advanced Controls
 - **Speed Control**: Fine-tune scrolling speed from 0.5x to 10x
 - **Text Size**: Adjust from 16px to 72px for perfect readability
 - **Keyboard Shortcuts**: Professional hotkeys for seamless operation
 - **Auto-hide Controls**: Controls fade away in fullscreen for clean presenting
 - **Content Editing**: Double-click to edit content on the fly
 
-### 💾 Smart Storage
+### Smart Storage
 - **Persistent Settings**: All preferences saved automatically
 - **Content Backup**: Generated content is stored for later use
 - **Cross-device Sync**: Settings sync across all your Chrome instances
@@ -51,11 +51,6 @@ A powerful Chrome extension that combines AI-generated content with a smooth tel
      - "Built-in AI"
    - Restart Chrome after enabling the flags
 
-4. **Add Icons (Optional)**
-   - Create simple PNG icons for the extension:
-     - 16x16, 32x32, 48x48, and 128x128 pixel versions
-     - Save them in an "icons" folder as icon16.png, icon32.png, etc.
-     - Or remove the icons section from manifest.json
 
 ## Setup
 
