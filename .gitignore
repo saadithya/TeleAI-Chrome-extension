@@ -1,0 +1,5 @@
+# Ignore duplicate directories
+TeleAI/
+extracted/
+TeleAI-Chrome-Extension.zip
+*.zip
